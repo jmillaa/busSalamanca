@@ -10,14 +10,7 @@ app = FastAPI(title="Bus Salamanca API", version="0.1.0")
 
 @app.get("/bus")
 def bus(stop: int = Query(..., ge=1)):
-    print(f"Fetching data for stop {stop}")
-    try:
-        data = get_tiempos(stop)
-    except Exception as e:
-        return JSONResponse(
-            status_code=500,
-            content={"error": "Error fetching data", "details": str(e)}
-        )
+    data = get_tiempos(stop)
     # Normalizamos a JSON simple
     arrivals = [{"line": linea, "eta": eta} for (linea, eta) in data]
     return JSONResponse({"stop": stop, "arrivals": arrivals})
