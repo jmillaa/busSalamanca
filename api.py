@@ -1,4 +1,6 @@
 # api.py
+import os
+import uvicorn
 from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse
 from codigo import get_tiempos
@@ -14,7 +16,7 @@ def bus(stop: int = Query(..., ge=1)):
     return JSONResponse({"stop": stop, "arrivals": arrivals})
 
 
-@app.get("/")
+@app.get("/status")
 def home():
     return {"status": "ok", "message": "API Bus Salamanca funcionando"}
 
